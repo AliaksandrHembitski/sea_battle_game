@@ -93,7 +93,6 @@ class Board:
         return (graph_disp_x_axis + graph_disp_y_axis)
 
     def out(self, dot):
-        print ("Стреляй точнее!")
         return not ((0 < dot.x <= self.size) and (0 < dot.y <= self.size))
 
     def circuit(self, ship, verb=False):
@@ -119,6 +118,7 @@ class Board:
 
     def shot(self, dot):
         if self.out(dot):
+            print("Размер поля 6х6. Будь внимательнее.")
             raise BoardOutExcetion()
         if dot in self.list_of_shots:
             print(f'Целься точнее, ты уже стрелял по этим координатам!\n'
