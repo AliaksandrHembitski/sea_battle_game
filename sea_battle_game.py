@@ -93,6 +93,7 @@ class Board:
         return (graph_disp_x_axis + graph_disp_y_axis)
 
     def out(self, dot):
+        print ("Стреляй точнее!")
         return not ((0 < dot.x <= self.size) and (0 < dot.y <= self.size))
 
     def circuit(self, ship, verb=False):
@@ -137,7 +138,7 @@ class Board:
                     print("Корабль ранен!")
                     return True
 
-        self.game_field[dot.x - 1][dot.y - 1] = "∙"
+        self.game_field[dot.x - 1][dot.y - 1] = "T"
         print("Мимо!")
         return False
 
@@ -145,7 +146,7 @@ class Board:
         self.list_busy_points = []
 
     def definition(self):
-        return self.num_wrecked_ships == 1
+        return self.num_wrecked_ships == 7
 
 
 class Player:
@@ -182,7 +183,7 @@ class User(Player):
                 continue
             x, y = shot_coor
             if not (x.isdigit()) or not (y.isdigit()):
-                print("Введите числа от 1 до 6.")
+                print("Размер поля 6х6. Ипользуй только цифры.")
                 continue
             x, y = int(x), int(y)
             return Dot(x, y)  # если будет смещение по координатам отрегулировать
@@ -201,7 +202,7 @@ class Game:
         self.size = size
         gamer = self.random_board()
         ai = self.random_board()
-        ai.hid = False
+        ai.hid = True
         self.ai = AI(ai, gamer)
         self.gamer = User(gamer, ai)
 
@@ -250,7 +251,7 @@ class Game:
 
 
     def try_board(self):
-        lens = [2,]  # перечень кораблей и их количество
+        lens = [3, 2, 2, 1, 1, 1, 1]  # перечень кораблей и их количество
         board = Board(size=self.size)
         attempts = 0
         for l in lens:
